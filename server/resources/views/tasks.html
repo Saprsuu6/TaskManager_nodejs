@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <title>Tasks</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Home</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/projects"
+                >Projects</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container text-center">
+      <div class="row p-5">
+        <div class="col">
+          <h2>Create a new task</h2>
+          <input type="hidden" class="form-control" id="id" />
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Task name"
+              name="name"
+              id="name"
+            />
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="termsRadio"
+              id="radioDatetime"
+            />
+            <div class="input-group mb-3">
+              <input
+                type="datetime-local"
+                class="form-control"
+                id="datetime"
+                disabled
+              />
+            </div>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="termsRadio"
+              id="radioDate"
+              checked
+            />
+            <div class="input-group mb-3">
+              <input type="date" class="form-control" id="date" />
+            </div>
+          </div>
+
+          <div class="form-floating mb-3">
+            <textarea
+              class="form-control"
+              placeholder="Describe"
+              name="describe"
+              id="describe"
+            ></textarea>
+            <label for="describe">Describe</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <textarea
+              class="form-control"
+              placeholder="#Tags"
+              name="tags"
+              id="tags"
+            ></textarea>
+            <label for="tags">Tags (enter after #)</label>
+          </div>
+
+          <div class="form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="priorityRadio"
+              id="radioHight"
+              checked
+            />
+            <label for="priorityRadio">🥇</label>
+          </div>
+          <div class="form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="priorityRadio"
+              id="radioNormal"
+            />
+            <label for="priorityRadio">🥈</label>
+          </div>
+          <div class="form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="priorityRadio"
+              id="radioLow"
+            />
+            <label for="priorityRadio">🥉</label>
+          </div>
+
+          <div class="row p-3">
+            <div class="col">
+              <button class="btn btn-success" id="submitBtn">Create</button>
+            </div>
+
+            <div class="col">
+              <button class="btn btn-warning" id="editBtn" disabled>
+                Edit
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <h2>Tasks</h2>
+          <div style="overflow: auto; height: 700px">
+            <ul class="list-group" id="taskList"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="module" src="./scripts/tasks.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"
+  ></script>
+</html>
