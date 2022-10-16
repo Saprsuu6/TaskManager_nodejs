@@ -3,10 +3,6 @@ import { changeTaskIcon, fillTaskList, projectName } from "./projects.js";
 export async function addAllTasks() {
   const response = fetch("/projects/allTasks", {
     method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
   }).then(async (res) => {
     const response = await res.json();
 

@@ -19,10 +19,6 @@ import {
 export async function loadList(event) {
   const response = fetch("/allTasks", {
     method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
   }).then(async (res) => {
     const response = await res.json();
 

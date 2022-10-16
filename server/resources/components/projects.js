@@ -1,4 +1,4 @@
-import { preparedTasks, tasks } from "../../storage.js";
+import { preparedTasks, projects, tasks } from "../../storage.js";
 import MyProject from "../views/models/project.js";
 
 export function addPreparedTask(req, res, next) {
@@ -31,15 +31,23 @@ export function addPreparedTask(req, res, next) {
 
 export function addProject(req, res, next) {
   const data = req.body.data;
-  const project = null;
+  let project = null;
+  let tasksToProject = undefined;
 
-  try {
-    project = new MyProject(data.name);
-    // send response
-  } catch (exception) {
-    throw exception;
+  if (preparedTasks.length > 0) {
+    tasksToProject = preparedTasks;
   }
 
-  //res.end();
+  try {
+    project = new MyProject(data.name, tasksToProject);
+    projects.splice(0, 0, project);
+    console.log(projects);
+    res.send(JSON.stringify(project));
+  } catch (exception) {
+    throw exception;
+    //res.status(500);
+    //res.end();
+  }
+
   next();
 }
