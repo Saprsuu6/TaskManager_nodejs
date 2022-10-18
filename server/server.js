@@ -2,30 +2,34 @@ import express from "express";
 import path from "path";
 import bodyParser from "body-parser";
 import router from "./routes.js";
-import fetch from "node-fetch";
+import { fillDB, fillStorage } from "./storage.js";
 
-///////////////////////////////////////////////
-export async function addAllTasks() {
-  await fetch("http://localhost:3000/posts")
-    .then(async (res) => {
-      const response = await res.json();
-      console.log(response);
-    })
-    .catch(console.log);
+class Server {
+  constructor() {
+    this.PORT = 8080;
+    this.app = express();
+    this.__dirname = path.resolve();
+  }
+
+  deconstructor() {}
+
+  run() {
+    this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({ extended: true }));
+    this.app.use(
+      express.static(path.resolve(this.__dirname, "resources/views"))
+    );
+    this.app.use(router);
+
+    const server = this.app.listen(this.PORT, async () => {
+      console.log(`http://localhost:${this.PORT}`);
+    });
+  }
 }
 
-addAllTasks();
-///////////////////////////////////////////////
+const server = new Server();
+await fillDB();
+//await fillStorage();
+server.run();
 
-const PORT = 8080;
-const app = express();
-const __dirname = path.resolve();
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.resolve(__dirname, "resources/views")));
-app.use(router);
-
-app.listen(PORT, () => {
-  console.log(`http://localhost:${PORT}`);
-});
+// перед запуском помимо пакетов nodemon и express нужно установить json-server и перед запуском запустить его (json-server --watch db.json)

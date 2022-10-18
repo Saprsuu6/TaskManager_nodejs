@@ -44,10 +44,15 @@ export function addProject(req, res, next) {
     console.log(projects);
     res.send(JSON.stringify(project));
   } catch (exception) {
-    throw exception;
-    //res.status(500);
-    //res.end();
+    //res.json(new Error(exception));
+    //res.status(404);
+    //res.send(exception);
+    //res.send(JSON.stringify(project));
+    //res.send(JSON.stringify(project));
+    //res.send(JSON.stringify(project));
   }
+
+  // array cleaning
 
   next();
 }

@@ -7,7 +7,6 @@ import {
   prepareToEditTask,
   radioDate,
   removeTaskFromList,
-  rewriteIndexes,
   taskDescribe,
   taskId,
   taskName,
@@ -19,13 +18,18 @@ import {
 export async function loadList(event) {
   const response = fetch("/allTasks", {
     method: "POST",
-  }).then(async (res) => {
-    const response = await res.json();
-
-    for (let i = 0; i < response.length; i++) {
-      fillTaskList(response[i], i);
-    }
-  });
+  })
+    .then(async (res) => {
+      return await res.json();
+    })
+    .then((data) => {
+      for (let i = 0; i < data.length; i++) {
+        fillTaskList(data[i], i);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 export async function addTask(event) {
@@ -42,11 +46,17 @@ export async function addTask(event) {
       body: JSON.stringify({
         data: getTaskJSON(),
       }),
-    }).then(async (res) => {
-      clearFields();
-      const response = await res.json();
-      addTaskToList(response);
-    });
+    })
+      .then(async (res) => {
+        return await res.json();
+      })
+      .then(async (data) => {
+        clearFields();
+        addTaskToList(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }
 
@@ -63,11 +73,17 @@ export async function removeTask(event) {
     body: JSON.stringify({
       index: currentLi.id,
     }),
-  }).then(async (res) => {
-    clearFields();
-    const response = await res.json();
-    removeTaskFromList(response);
-  });
+  })
+    .then(async (res) => {
+      return await res.json();
+    })
+    .then((data) => {
+      clearFields();
+      removeTaskFromList(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 export async function updateTask(event) {
@@ -83,11 +99,39 @@ export async function updateTask(event) {
       index: index,
       data: getTaskJSON(),
     }),
-  }).then(async (res) => {
-    clearFields();
-    const response = await res.json();
-    editTask(response);
-  });
+  })
+    .then(async (res) => {
+      return await res.json();
+    })
+    .then((data) => {
+      clearFields();
+      editTask(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+export async function getCurrentTask(currentLi) {
+  const response = fetch("/currentTask", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      index: currentLi.id,
+    }),
+  })
+    .then(async (res) => {
+      return await res.json();
+    })
+    .then((data) => {
+      prepareToEditTask(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 let getTaskJSON = () => {
@@ -102,19 +146,3 @@ let getTaskJSON = () => {
     priority: getPriority(),
   };
 };
-
-export async function getCurrentTask(currentLi) {
-  const response = fetch("/currentTask", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      index: currentLi.id,
-    }),
-  }).then(async (res) => {
-    const response = await res.json();
-    prepareToEditTask(response);
-  });
-}
