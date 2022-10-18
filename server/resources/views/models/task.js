@@ -79,9 +79,6 @@ class MyTask {
     let colForBtn2 = document.createElement("div");
     colForBtn2.className = "col";
 
-    let colForBtn3 = document.createElement("div");
-    colForBtn2.className = "col";
-
     let buttonEdit = document.createElement("button");
     buttonEdit.className = "btn btn-outline-warning";
     buttonEdit.innerText = "✍";

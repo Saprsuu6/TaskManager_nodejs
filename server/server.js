@@ -28,7 +28,7 @@ class Server {
 }
 
 const server = new Server();
-await fillDB();
+//await fillDB();
 //await fillStorage();
 server.run();
 

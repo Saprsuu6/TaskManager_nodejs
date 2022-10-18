@@ -1,4 +1,11 @@
-import { changeTaskIcon, fillTaskList, projectName } from "./projects.js";
+import {
+  addProjectToList,
+  changeTaskIcon,
+  clearFields,
+  fillTaskList,
+  projectName,
+  resetTasksButtons,
+} from "./projects.js";
 
 export async function addAllTasks() {
   const response = fetch("/projects/allTasks", {
@@ -62,9 +69,14 @@ export async function addProject(event) {
         return await res.json();
       })
       .then((data) => {
-        console.log(data);
-        console.log(data.tasks);
-        // to do
+        if (data.exception) {
+          let exception = data.exception;
+          alert(exception);
+        } else {
+          addProjectToList(data);
+          clearFields();
+          resetTasksButtons();
+        }
       })
       .catch((err) => {
         console.log(err);

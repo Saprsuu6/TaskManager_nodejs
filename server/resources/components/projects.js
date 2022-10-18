@@ -35,24 +35,21 @@ export function addProject(req, res, next) {
   let tasksToProject = undefined;
 
   if (preparedTasks.length > 0) {
-    tasksToProject = preparedTasks;
+    tasksToProject = [];
+
+    preparedTasks.forEach((element) => {
+      tasksToProject.push(element);
+    });
   }
 
   try {
     project = new MyProject(data.name, tasksToProject);
     projects.splice(0, 0, project);
-    console.log(projects);
+    preparedTasks.length = 0;
     res.send(JSON.stringify(project));
   } catch (exception) {
-    //res.json(new Error(exception));
-    //res.status(404);
-    //res.send(exception);
-    //res.send(JSON.stringify(project));
-    //res.send(JSON.stringify(project));
-    //res.send(JSON.stringify(project));
+    res.send(JSON.stringify({ exception: exception.toString() }));
   }
-
-  // array cleaning
 
   next();
 }

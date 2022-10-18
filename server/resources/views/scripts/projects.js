@@ -1,3 +1,4 @@
+import MyProject from "../models/project.js";
 import MyTask from "../models/task.js";
 import {
   addProject,
@@ -12,6 +13,7 @@ const submitBtn = document.getElementById("submitBtn");
 const editBtn = document.getElementById("editBtn");
 
 const taskList = document.getElementById("taskList");
+const projectList = document.getElementById("projectList");
 
 export let fillTaskList = (task, index) => {
   const view_task = new MyTask(
@@ -42,6 +44,37 @@ export let changeTaskIcon = (flag, index) => {
   } else {
     buttons[0].className = "btn btn-outline-danger";
     buttons[0].innerText = "❌";
+  }
+};
+
+export let clearFields = () => {
+  projectName.value = "";
+};
+
+export let resetTasksButtons = () => {
+  let tasks = taskList.childNodes;
+
+  tasks.forEach((element) => {
+    let buttons = element.getElementsByTagName("button");
+    buttons[0].className = "btn btn-outline-primary";
+    buttons[0].innerText = "✅";
+  });
+};
+
+export let addProjectToList = (project) => {
+  const view_project = new MyProject(project.name, project.tasks);
+
+  var first = projectList.childNodes[0];
+  var element = view_project.returnProjectTag();
+  projectList.insertBefore(element, first);
+
+  // setButtonsEvents(element);
+  rewriteIndexes();
+};
+
+export let rewriteIndexes = () => {
+  for (var i = 0; i < projectList.childElementCount; i++) {
+    projectList.childNodes[i].id = i;
   }
 };
 
