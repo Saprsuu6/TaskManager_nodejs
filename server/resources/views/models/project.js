@@ -41,20 +41,12 @@ class MyProject {
       li.innerText = "- " + element.name;
       listOfTasks.append(li);
     });
-    console.log(listOfTasks);
 
     let rowForBtn = document.createElement("div");
     rowForBtn.className = "row mt-2";
 
-    let colForBtn1 = document.createElement("div");
-    colForBtn1.className = "col";
-
-    let colForBtn2 = document.createElement("div");
-    colForBtn2.className = "col";
-
-    let buttonEdit = document.createElement("button");
-    buttonEdit.className = "btn btn-outline-warning";
-    buttonEdit.innerText = "✍";
+    let colForBtn = document.createElement("div");
+    colForBtn.className = "col";
 
     let buttonRemove = document.createElement("button");
     buttonRemove.className = "btn btn-outline-danger";
@@ -66,11 +58,9 @@ class MyProject {
     elementDivBody.appendChild(listOfTasks);
     elementDivBody.appendChild(rowForBtn);
 
-    rowForBtn.appendChild(colForBtn1);
-    rowForBtn.appendChild(colForBtn2);
+    rowForBtn.appendChild(colForBtn);
 
-    colForBtn1.appendChild(buttonEdit);
-    colForBtn2.appendChild(buttonRemove);
+    colForBtn.appendChild(buttonRemove);
 
     return elementLi;
   }

@@ -61,29 +61,31 @@ export async function addTask(event) {
 }
 
 export async function removeTask(event) {
-  var currentLi =
-    event.target.parentNode.parentNode.parentNode.parentNode.parentNode;
+  if (confirm("Would you like to remove this task?")) {
+    var currentLi =
+      event.target.parentNode.parentNode.parentNode.parentNode.parentNode;
 
-  const response = fetch("/", {
-    method: "DELETE",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      index: currentLi.id,
-    }),
-  })
-    .then(async (res) => {
-      return await res.json();
+    const response = fetch("/", {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        index: currentLi.id,
+      }),
     })
-    .then((data) => {
-      clearFields();
-      removeTaskFromList(data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .then(async (res) => {
+        return await res.json();
+      })
+      .then((data) => {
+        clearFields();
+        removeTaskFromList(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 }
 
 export async function updateTask(event) {

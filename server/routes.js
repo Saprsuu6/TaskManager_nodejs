@@ -3,6 +3,7 @@ import path from "path";
 import {
   addPreparedTask,
   addProject,
+  removeProject,
 } from "./resources/components/projects.js";
 import {
   addTask,
@@ -36,10 +37,15 @@ router
   .get((req, res) => {
     res.sendFile(path.resolve(__dirname, "resources/views", "projects.html"));
   })
-  .post(addProject, (req, res) => {});
+  .post(addProject, (req, res) => {})
+  .delete(removeProject, (req, res) => {});
 
 router.route("/projects/allTasks").post((req, res) => {
   res.send(JSON.stringify(tasks));
+});
+
+router.route("/projects/allProjects").post((req, res) => {
+  res.send(JSON.stringify(projects));
 });
 
 router.route("/projects/preparedTask").post(addPreparedTask, (req, res) => {});

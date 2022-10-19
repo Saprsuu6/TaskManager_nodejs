@@ -2,8 +2,10 @@ import {
   addProjectToList,
   changeTaskIcon,
   clearFields,
+  fillProjectList,
   fillTaskList,
   projectName,
+  removeTaskFromList,
   resetTasksButtons,
 } from "./projects.js";
 
@@ -25,7 +27,20 @@ export async function addAllTasks() {
 }
 
 export async function addAllProjects() {
-  // console.log("asdasd");
+  const response = fetch("/projects/allProjects", {
+    method: "POST",
+  })
+    .then(async (res) => {
+      return await res.json();
+    })
+    .then((data) => {
+      for (let i = 0; i < data.length; i++) {
+        fillProjectList(data[i], i);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 export async function addPreparedTask(event) {
@@ -77,6 +92,34 @@ export async function addProject(event) {
           clearFields();
           resetTasksButtons();
         }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+}
+
+export async function removeTask(event) {
+  if (confirm("Would you like to remove this project?")) {
+    var currentLi =
+      event.target.parentNode.parentNode.parentNode.parentNode.parentNode;
+
+    const response = fetch("/projects", {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        index: currentLi.id,
+      }),
+    })
+      .then(async (res) => {
+        return await res.json();
+      })
+      .then((data) => {
+        clearFields();
+        removeTaskFromList(data);
       })
       .catch((err) => {
         console.log(err);

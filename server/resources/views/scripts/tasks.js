@@ -20,8 +20,14 @@ const radioNormal = document.getElementById("radioNormal");
 const radioLow = document.getElementById("radioLow");
 const submitBtn = document.getElementById("submitBtn");
 const editBtn = document.getElementById("editBtn");
+const searchCriterion = document.getElementById("search");
+const fieldForSearch = document.getElementById("fieldForSearch");
 
 const taskList = document.getElementById("taskList");
+
+searchCriterion.addEventListener("change", (event) => {
+  fieldForSearch.placeholder = "Enter task " + event.target.value;
+});
 
 radioDatetime.addEventListener("change", (event) => {
   if (taskTermsDate.value != "") {
@@ -207,6 +213,9 @@ export let editTask = (response) => {
   editBtn.disabled = true;
 };
 
-document.addEventListener("DOMContentLoaded", loadList);
+document.addEventListener("DOMContentLoaded", () => {
+  loadList();
+  fieldForSearch.placeholder = "Enter task " + searchCriterion.value;
+});
 submitBtn.addEventListener("click", addTask);
 editBtn.addEventListener("click", updateTask);

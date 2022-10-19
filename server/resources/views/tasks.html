@@ -133,6 +133,28 @@
           </div>
         </div>
 
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1"
+            ><select
+              class="form-select"
+              id="search"
+              aria-label="Default select example"
+            >
+              <option selected value="name">Search by name</option>
+              <option value="description">Search by description</option>
+              <option value="tag">Search by tag/tags</option>
+              <option value="priority">Search by priority</option>
+            </select>
+          </span>
+          <input
+            type="text"
+            class="form-control"
+            id="fieldForSearch"
+            aria-label="Username"
+            aria-describedby="basic-addon1"
+          />
+        </div>
+
         <div class="col">
           <h2>Tasks</h2>
           <div style="overflow: auto; height: 700px">

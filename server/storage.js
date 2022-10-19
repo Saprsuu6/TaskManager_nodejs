@@ -12,7 +12,7 @@ let fillTasks = async () => {
       return await res.json();
     })
     .then((data) => {
-      console.log(data);
+      tasks = data;
     })
     .catch(console.log);
 };
@@ -25,7 +25,7 @@ let fillProjects = async () => {
       return await res.json();
     })
     .then((data) => {
-      console.log(data);
+      projects = data;
     })
     .catch(console.log);
 };
@@ -33,16 +33,15 @@ let fillProjects = async () => {
 let fillTasksDB = () => {
   console.log("asdasd");
   fetch("http://localhost:3000/tasks", {
-    // фетч запрос на сервер к tasks (должен быть определён руками)
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(tasks), // отправка массива в виде json формата
+    body: JSON.stringify(tasks),
   })
     .then(async (res) => {
-      console.log(await res.json()); // получение ответа и прсинг (просто чтобы знать что возвращается)
+      console.log(await res.json());
     })
     .catch(console.log);
 };

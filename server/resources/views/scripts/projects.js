@@ -5,6 +5,7 @@ import {
   addAllTasks,
   addAllProjects,
   addPreparedTask,
+  removeTask,
 } from "./project.fetches.js";
 
 export const projectId = document.getElementById("id");
@@ -68,8 +69,33 @@ export let addProjectToList = (project) => {
   var element = view_project.returnProjectTag();
   projectList.insertBefore(element, first);
 
-  // setButtonsEvents(element);
+  setButtonsEvents(element);
   rewriteIndexes();
+};
+
+let setButtonsEvents = (element) => {
+  var buttons = element.getElementsByTagName("button");
+
+  buttons[0].addEventListener("click", removeTask);
+};
+
+export let removeTaskFromList = (index) => {
+  var removed = projectList.childNodes[index];
+  projectList.removeChild(removed);
+
+  rewriteIndexes();
+};
+
+export let fillProjectList = (project, index) => {
+  const view_project = new MyProject(project.name, project.tasks);
+
+  view_project.setCreatingDate(project.creatingDate);
+
+  var element = view_project.returnProjectTag();
+  element.id = index;
+  projectList.append(element);
+
+  setButtonsEvents(element);
 };
 
 export let rewriteIndexes = () => {

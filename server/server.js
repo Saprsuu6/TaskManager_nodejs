@@ -31,5 +31,3 @@ const server = new Server();
 //await fillDB();
 //await fillStorage();
 server.run();
-
-// перед запуском помимо пакетов nodemon и express нужно установить json-server и перед запуском запустить его (json-server --watch db.json)

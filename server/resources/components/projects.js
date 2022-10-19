@@ -53,3 +53,11 @@ export function addProject(req, res, next) {
 
   next();
 }
+
+export function removeProject(req, res, next) {
+  const index = req.body.index;
+  projects.splice(index, 1);
+  res.send(JSON.stringify(index));
+
+  next();
+}
