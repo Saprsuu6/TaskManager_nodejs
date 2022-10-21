@@ -1,9 +1,9 @@
 class MyProject {
   constructor(name, tasks) {
-    if (name != "") this.name = name;
+    if (name.trim() !== "") this.name = name;
     else throw new Error("You have to set project name");
 
-    if (tasks != undefined) this.tasks = tasks;
+    if (tasks !== undefined) this.tasks = tasks;
     else throw new Error("You have to set tasks");
 
     this.creatingDate = new Date().toLocaleString();

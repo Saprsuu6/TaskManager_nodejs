@@ -2,6 +2,7 @@ import MyTask from "../models/task.js";
 import {
   addTask,
   getCurrentTask,
+  getSurchedCurrentTask,
   loadList,
   removeTask,
   updateTask,
@@ -24,9 +25,23 @@ const searchCriterion = document.getElementById("search");
 const fieldForSearch = document.getElementById("fieldForSearch");
 
 const taskList = document.getElementById("taskList");
+var criterion = null;
 
 searchCriterion.addEventListener("change", (event) => {
   fieldForSearch.placeholder = "Enter task " + event.target.value;
+  criterion = event.target.value;
+  if (fieldForSearch.value !== "") {
+    fieldForSearch.value = "";
+  }
+});
+
+fieldForSearch.addEventListener("input", (event) => {
+  if (event.target.value === "") {
+    clearList();
+    loadList();
+  } else {
+    getSurchedCurrentTask(event.target.value, criterion);
+  }
 });
 
 radioDatetime.addEventListener("change", (event) => {
@@ -106,12 +121,30 @@ let setButtonsEvents = (element) => {
   var buttons = element.getElementsByTagName("button");
 
   buttons[0].addEventListener("click", async (event) => {
+    if (fieldForSearch.value !== "") {
+      fieldForSearch.value = "";
+    }
+    clearList();
+    loadList();
     clearFields();
     await getCurrentTask(
       event.target.parentNode.parentNode.parentNode.parentNode.parentNode
     );
   });
-  buttons[1].addEventListener("click", removeTask);
+  buttons[1].addEventListener("click", (event) => {
+    if (fieldForSearch.value !== "") {
+      fieldForSearch.value = "";
+    }
+    clearList();
+    loadList();
+    removeTask(event);
+  });
+};
+
+export let clearList = () => {
+  if (taskList.childNodes.length > 0) {
+    taskList.innerHTML = "";
+  }
 };
 
 export let fillTaskList = (task, index) => {
@@ -216,6 +249,21 @@ export let editTask = (response) => {
 document.addEventListener("DOMContentLoaded", () => {
   loadList();
   fieldForSearch.placeholder = "Enter task " + searchCriterion.value;
+  criterion = searchCriterion.value;
 });
-submitBtn.addEventListener("click", addTask);
-editBtn.addEventListener("click", updateTask);
+submitBtn.addEventListener("click", (event) => {
+  if (fieldForSearch.value !== "") {
+    fieldForSearch.value = "";
+  }
+  clearList();
+  loadList();
+  addTask(event);
+});
+editBtn.addEventListener("click", (event) => {
+  if (fieldForSearch.value !== "") {
+    fieldForSearch.value = "";
+  }
+  clearList();
+  loadList();
+  updateTask(event);
+});

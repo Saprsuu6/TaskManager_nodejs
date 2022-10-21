@@ -8,6 +8,7 @@ import {
 import {
   addTask,
   getCurrentTask,
+  getSearchedTask,
   removeTask,
   updateTask,
 } from "./resources/components/tasks.js";
@@ -31,6 +32,8 @@ router.route("/currentTask").post(getCurrentTask, (req, res) => {});
 router.route("/allTasks").post((req, res) => {
   res.send(JSON.stringify(tasks));
 });
+
+router.route("/searchedTask").post(getSearchedTask, (req, res) => {});
 
 router
   .route("/projects")

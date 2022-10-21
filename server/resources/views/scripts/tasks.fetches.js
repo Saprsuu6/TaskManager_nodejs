@@ -1,6 +1,7 @@
 import {
   addTaskToList,
   clearFields,
+  clearList,
   editTask,
   fillTaskList,
   getPriority,
@@ -33,7 +34,7 @@ export async function loadList(event) {
 }
 
 export async function addTask(event) {
-  if (taskName.value === "") alert("You have to set task name");
+  if (taskName.value.trim() === "") alert("You have to set task name");
   else if (taskTermsDatetime.value === "" && taskTermsDate.value === "")
     alert("You have to set task terms");
   else {
@@ -134,6 +135,36 @@ export async function getCurrentTask(currentLi) {
     .catch((err) => {
       console.log(err);
     });
+}
+
+export async function getSurchedCurrentTask(part, criterion) {
+  if (part.trim() !== "") {
+    const response = fetch("/searchedTask", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        part: part,
+        criteri: criterion,
+      }),
+    })
+      .then(async (res) => {
+        return await res.json();
+      })
+      .then((data) => {
+        if (data != "NO_TASKS") {
+          clearList();
+          for (let i = 0; i < data.length; i++) {
+            fillTaskList(data[i], i);
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 }
 
 let getTaskJSON = () => {

@@ -1,15 +1,15 @@
 class MyTask {
   constructor(name, terms, describe, tags = [], priority) {
-    if (name != "" || name != undefined) this.name = name;
+    if (name.trim() !== "") this.name = name;
     else throw new Error("You have to set task name");
 
-    if (terms != "") this.terms = terms;
+    if (terms !== "") this.terms = terms;
     else throw new Error("You have to set task terms");
 
-    this.describe = describe === "" ? "---" : describe;
+    this.describe = describe === "" ? "---" : describe.trim();
     this.tags = tags.length === 0 || tags === undefined ? "---" : tags;
 
-    if (priority != "" || priority != undefined) this.priority = priority;
+    if (priority !== "" || priority !== undefined) this.priority = priority;
     else throw new Error("You have to set task priority");
 
     this.creatingDate = new Date().toLocaleString();

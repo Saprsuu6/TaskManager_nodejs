@@ -24,6 +24,41 @@ export function addTask(req, res, next) {
   next();
 }
 
+export function getSearchedTask(req, res, next) {
+  const part = req.body.part.toLowerCase();
+  const criteri = req.body.criteri;
+  console.log(criteri);
+  const current_tasks = [];
+
+  if (criteri != undefined) {
+    if (criteri === "tag") {
+      tasks.forEach((task) => {
+        if (task.tags !== "---") {
+          task.tags.forEach((tag) => {
+            if (tag.toLowerCase().includes(part)) {
+              current_tasks.push(task);
+            }
+          });
+        }
+      });
+    } else {
+      tasks.forEach((task) => {
+        if (task[criteri].toLowerCase().includes(part)) {
+          current_tasks.push(task);
+        }
+      });
+    }
+  }
+
+  res.send(
+    current_tasks.length !== 0
+      ? JSON.stringify(current_tasks)
+      : JSON.stringify("NO_TASKS")
+  );
+
+  next();
+}
+
 export function removeTask(req, res, next) {
   const index = req.body.index;
   tasks.splice(index, 1);
