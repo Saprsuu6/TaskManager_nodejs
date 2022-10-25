@@ -12,7 +12,7 @@ import {
   removeTask,
   updateTask,
 } from "./resources/components/tasks.js";
-import { tasks, projects } from "./storage.js";
+import { tasks, projects, preparedTasks } from "./storage.js";
 
 const __dirname = path.resolve();
 const router = express.Router();
@@ -39,18 +39,23 @@ router
   .route("/projects")
   .get((req, res) => {
     res.sendFile(path.resolve(__dirname, "resources/views", "projects.html"));
+    //res.render("projects");
   })
   .post(addProject, (req, res) => {})
   .delete(removeProject, (req, res) => {});
-
-router.route("/projects/allTasks").post((req, res) => {
-  res.send(JSON.stringify(tasks));
-});
 
 router.route("/projects/allProjects").post((req, res) => {
   res.send(JSON.stringify(projects));
 });
 
-router.route("/projects/preparedTask").post(addPreparedTask, (req, res) => {});
+router.route("/preparedTask").post(addPreparedTask, (req, res) => {});
+
+router.route("/tasksList").get((req, res) => {
+  res.sendFile(path.resolve(__dirname, "resources/views", "tasksList.html"));
+});
+
+router.route("/crearPrepared").get((req, res) => {
+  if (preparedTasks.length > 0) preparedTasks.length = 0;
+});
 
 export default router;

@@ -6,6 +6,7 @@ import {
   addAllProjects,
   addPreparedTask,
   removeTask,
+  clearPrepared,
 } from "./project.fetches.js";
 
 export const projectId = document.getElementById("id");
@@ -105,6 +106,7 @@ export let rewriteIndexes = () => {
 };
 
 document.addEventListener("DOMContentLoaded", async (event) => {
+  clearPrepared();
   addAllTasks(event);
   addAllProjects(event);
 });

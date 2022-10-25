@@ -27,7 +27,6 @@ export function addTask(req, res, next) {
 export function getSearchedTask(req, res, next) {
   const part = req.body.part.toLowerCase();
   const criteri = req.body.criteri;
-  console.log(criteri);
   const current_tasks = [];
 
   if (criteri != undefined) {

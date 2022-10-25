@@ -9,8 +9,14 @@ import {
   resetTasksButtons,
 } from "./projects.js";
 
+export async function clearPrepared() {
+  const response = fetch("/crearPrepared", {
+    method: "GET",
+  });
+}
+
 export async function addAllTasks() {
-  const response = fetch("/projects/allTasks", {
+  const response = fetch("/allTasks", {
     method: "POST",
   })
     .then(async (res) => {
@@ -46,7 +52,7 @@ export async function addAllProjects() {
 export async function addPreparedTask(event) {
   const currentLi = event.target.parentNode.parentNode.parentNode;
 
-  const response = fetch("/projects/preparedTask", {
+  const response = fetch("/preparedTask", {
     method: "POST",
     headers: {
       Accept: "application/json",

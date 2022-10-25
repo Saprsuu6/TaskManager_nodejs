@@ -18,6 +18,7 @@ export function addPreparedTask(req, res, next) {
     );
   } else {
     preparedTasks.push(current_task);
+    //console.log(preparedTasks.length);
     res.send(
       JSON.stringify({
         flag: false,
