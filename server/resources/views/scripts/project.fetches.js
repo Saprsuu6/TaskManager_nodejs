@@ -33,7 +33,7 @@ export async function addAllTasks() {
 }
 
 export async function addAllProjects() {
-  const response = fetch("/projects/allProjects", {
+  const response = fetch("/allProjects", {
     method: "POST",
   })
     .then(async (res) => {
@@ -83,7 +83,7 @@ export async function addProject(event) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        data: getTaskJSON(),
+        data: getProjectsJSON(),
       }),
     })
       .then(async (res) => {
@@ -133,7 +133,7 @@ export async function removeTask(event) {
   }
 }
 
-let getTaskJSON = () => {
+let getProjectsJSON = () => {
   return {
     name: projectName.value.trim(),
   };

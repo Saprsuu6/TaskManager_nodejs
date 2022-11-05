@@ -12,7 +12,11 @@ import {
   removeTask,
   updateTask,
 } from "./resources/components/tasks.js";
-import { tasks, projects, preparedTasks } from "./storage.js";
+import {
+  addTimeTask,
+  removeTimeList,
+} from "./resources/components/timeTasks.js";
+import { tasks, projects, preparedTasks, timeTasks } from "./storage.js";
 
 const __dirname = path.resolve();
 const router = express.Router();
@@ -44,18 +48,26 @@ router
   .post(addProject, (req, res) => {})
   .delete(removeProject, (req, res) => {});
 
-router.route("/projects/allProjects").post((req, res) => {
+router.route("/allProjects").post((req, res) => {
   res.send(JSON.stringify(projects));
 });
 
 router.route("/preparedTask").post(addPreparedTask, (req, res) => {});
 
-router.route("/tasksList").get((req, res) => {
-  res.sendFile(path.resolve(__dirname, "resources/views", "tasksList.html"));
-});
+router
+  .route("/tasksList")
+  .get((req, res) => {
+    res.sendFile(path.resolve(__dirname, "resources/views", "tasksList.html"));
+  })
+  .post(addTimeTask, (req, res) => {})
+  .delete(removeTimeList, (req, res) => {});
 
 router.route("/crearPrepared").get((req, res) => {
   if (preparedTasks.length > 0) preparedTasks.length = 0;
+});
+
+router.route("/allTimeTasks").post((req, res) => {
+  res.send(JSON.stringify(timeTasks));
 });
 
 export default router;

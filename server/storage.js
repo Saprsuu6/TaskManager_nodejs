@@ -3,6 +3,7 @@ import fetch from "node-fetch";
 export var tasks = [];
 export var projects = [];
 export var preparedTasks = [];
+export var timeTasks = [];
 
 let fillTasks = async () => {
   await fetch("http://localhost:3000/tasks", {

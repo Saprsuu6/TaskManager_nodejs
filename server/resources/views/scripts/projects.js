@@ -12,7 +12,6 @@ import {
 export const projectId = document.getElementById("id");
 export const projectName = document.getElementById("name");
 const submitBtn = document.getElementById("submitBtn");
-const editBtn = document.getElementById("editBtn");
 
 const taskList = document.getElementById("taskList");
 const projectList = document.getElementById("projectList");
